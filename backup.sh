@@ -21,6 +21,10 @@ usage() {
   exit 1
 }
 
+echoerr() {
+  printf "%s\n" "$*" >&2
+}
+
 if [[ "$#" -eq "0" ]]; then
   usage
 fi
@@ -46,12 +50,12 @@ done
 API_KEY=$1
 BACKUP_DIR=$2
 KEEP_THIS_MANY=720
-URL="https://frog.tips/api/2/tips/search/"
+URL="https://frog.tips/api/2/tips/search"
 CURL_OUT="$BACKUP_DIR/$(date -u +'%Y-%m-%dT%H%M%SZ').json"
 
 [ -d $BACKUP_DIR ] || mkdir $BACKUP_DIR
 
-echo "---> DOWNLOADING JSON"
+echoerr "---> DOWNLOADING JSON"
 curl -H "Content-Type: application/json" -H "Authorization: $API_KEY" \
   --fail \
   -X POST \
@@ -61,11 +65,11 @@ curl -H "Content-Type: application/json" -H "Authorization: $API_KEY" \
 gzip $CURL_OUT
 
 if [[ "$?" -ne "0" ]]; then
-  echo "ERROR: JSON COULD NOT BE DOWNLOADED."
+  echoerr "ERROR: JSON COULD NOT BE DOWNLOADED."
   exit 2
 fi
 
-echo "---> ROTATING BACKUPS"
+echoerr "---> ROTATING BACKUPS"
 ls -1 $BACKUP_DIR/* | sort -r | tail -n +$KEEP_THIS_MANY | xargs rm > /dev/null 2>&1
 
-echo "DONE."
+echoerr "DONE."
