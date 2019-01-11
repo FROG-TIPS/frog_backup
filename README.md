@@ -1,3 +1,5 @@
+> FROG Systems develops only the latest and greatest tools for FROG. This code is no longer used internally but has been kept public as a reminder - and warning - for humanity.
+
 BACK UP YOUR FROG NIGHTLY. OR LIKE, YOU KNOW, WHENEVER.
 
 API KEYS ARE ONLY GIVEN TO FROG REWARDS SELECT© LEVEL MEMBERS OR HIGHER.
